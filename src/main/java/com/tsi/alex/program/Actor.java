@@ -1,18 +1,21 @@
 package com.tsi.alex.program;
 
+import org.springframework.stereotype.Repository;
+
 import javax.persistence.*;
 
 @Entity
+@Repository
 @Table(name="actor")
 public class Actor {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int actor_id ;
+    private int actor_id;
 
     //Attributes
-    private String first_name ;
-    private String last_name ;
+    private String first_name;
+    private String last_name;
 
     public Actor(String first_name, String last_name){
         this.first_name=first_name;
