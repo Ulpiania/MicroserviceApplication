@@ -3,15 +3,16 @@ package com.tsi.alex.program;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.*;
+import java.util.Optional;
 
 @Entity
-//@Repository
+@Repository
 @Table(name="actor")
-public class Actor {
+public class Actor implements ActorRepository{
 
     @Id
     @Column(name="actor_id")
-    @GeneratedValue(strategy = GenerationType.TABLE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int actor_id;
 
     //Attributes
@@ -50,5 +51,70 @@ public class Actor {
 
     public void setLast_name(String last_name) {
         this.last_name = last_name;
+    }
+
+    public void update(Actor newFirst_Name, Actor newLast_Name) {
+        newFirst_Name.first_name = this.first_name;
+        newLast_Name.last_name = this.last_name;
+
+    }
+    @Override
+    public <S extends Actor> S save(S entity) {
+        return null;
+    }
+
+    @Override
+    public <S extends Actor> Iterable<S> saveAll(Iterable<S> entities) {
+        return null;
+    }
+
+    @Override
+    public Optional<Actor> findById(Integer integer) {
+        return Optional.empty();
+    }
+
+    @Override
+    public boolean existsById(Integer integer) {
+        return false;
+    }
+
+    @Override
+    public Iterable<Actor> findAll() {
+        return null;
+    }
+
+    @Override
+    public Iterable<Actor> findAllById(Iterable<Integer> integers) {
+        return null;
+    }
+
+    @Override
+    public long count() {
+        return 0;
+    }
+
+    @Override
+    public void deleteById(Integer integer) {
+
+    }
+
+    @Override
+    public void delete(Actor entity) {
+
+    }
+
+    @Override
+    public void deleteAllById(Iterable<? extends Integer> integers) {
+
+    }
+
+    @Override
+    public void deleteAll(Iterable<? extends Actor> entities) {
+
+    }
+
+    @Override
+    public void deleteAll() {
+
     }
 }
