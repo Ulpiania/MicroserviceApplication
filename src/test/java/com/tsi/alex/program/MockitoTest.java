@@ -7,7 +7,12 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 //import org.mockito.Mock;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.util.Optional;
+
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
@@ -31,6 +36,12 @@ public class MockitoTest {
     }
 
     @Test
+    public void getAnActor(){
+        myFirstMicroserviceApplication.getAnActor(199);
+        verify(actorRepository).findById(199);
+    }
+
+    @Test
     public void testAddNewActor(){
         Actor actor = new Actor("Alex", "Ulpiani");
 
@@ -42,7 +53,14 @@ public class MockitoTest {
         verify(actorRepository).save(actorArguementCaptor.capture());
         actorArguementCaptor.getValue();
 
-        Assertions.assertEquals(expected, Actual, "The actor was not saved successfully into the databse");
+        Assertions.assertEquals(expected, Actual, "The actor was not saved successfully into the database");
+
+    }
+
+    @Test
+    public void testDeleteActor(){
+        myFirstMicroserviceApplication.deleteActorById(199);
+        verify(actorRepository, times(1)).deleteById(199);
 
     }
 }
