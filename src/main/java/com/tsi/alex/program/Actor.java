@@ -5,12 +5,13 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.*;
 
 @Entity
-@Repository
+//@Repository
 @Table(name="actor")
 public class Actor {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="actor_id")
+    @GeneratedValue(strategy = GenerationType.TABLE)
     private int actor_id;
 
     //Attributes

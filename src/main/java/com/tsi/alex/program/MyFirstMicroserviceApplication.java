@@ -22,15 +22,13 @@ public class MyFirstMicroserviceApplication {
 	public MyFirstMicroserviceApplication(ActorRepository actorRepository){
 		this.actorRepository = actorRepository;
 	}
-
+	//@ResponseBody
 	@PostMapping("/Add_New_Actor")
-	public @ResponseBody String addNewUser (@RequestParam String first_name
-			, @RequestParam String last_name){
-		Actor a = new Actor();
-		a.setFirst_name(first_name);
-		a.setLast_name(last_name);
+	public @ResponseBody String addNewActor(@RequestParam String first_name, @RequestParam String last_name){
+		Actor a = new Actor(first_name, last_name);
+		System.out.println(first_name + " " + last_name);
 		actorRepository.save(a);
-		return "Saved";
+		return "saved";
 	}
 
 	//Get request / read function
@@ -38,5 +36,11 @@ public class MyFirstMicroserviceApplication {
 	public @ResponseBody
 	Iterable<Actor>getAllActors(){
 		return actorRepository.findAll();
+	}
+
+	@DeleteMapping("/Delete_Actor_By_Id")
+	public @ResponseBody
+	void deleteActorById(@RequestParam int id){
+		actorRepository.deleteById(id);
 	}
 }
