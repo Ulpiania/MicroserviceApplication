@@ -50,10 +50,9 @@ public class Actor implements ActorRepository{
         this.last_name = last_name;
     }
 
-    public void update(Actor newFirst_Name, Actor newLast_Name) {
-        newFirst_Name.first_name = this.first_name;
-        newLast_Name.last_name = this.last_name;
-
+    public String toString()
+    {
+        return first_name + " " + last_name;
     }
     @Override
     public <S extends Actor> S save(S entity) {

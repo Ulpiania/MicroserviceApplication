@@ -1,5 +1,6 @@
 package com.tsi.alex.program;
 
+import io.cucumber.java.jv.Lan;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -59,6 +60,19 @@ public class MockitoTest {
 
     }
 
+//    @Test
+//    public void UpdateAnActor(){
+//        Actor a = new Actor("ED", "Chase");
+//        Optional<Actor> oActor = Optional.of(a);
+//        Mockito.when(myFirstMicroserviceApplication,getAnActor(3)).thenReturn(oActor);
+//        Actor b = new Actor("Chase", "ED");
+//        String result = myFirstMicroserviceApplication.UpdateActor(3, b);
+//        String expected = "Chase ED";
+//        Assertions.assertEquals(result, expected, "The actor was not successfully updated");
+////        myFirstMicroserviceApplication.getAnActor(199);
+////        verify(actorRepository).findById(199);
+//    }
+
     @Test
     public void testDeleteActor(){
         myFirstMicroserviceApplication.deleteActorById(199);
@@ -98,6 +112,41 @@ public class MockitoTest {
     public void testDeleteCategory(){
         myFirstMicroserviceApplication.deleteCategoryById(16);
         verify(categoryRepository, times(1)).deleteById(16);
+
+    }
+
+    @Test
+    public void getAllLanguages(){
+        myFirstMicroserviceApplication.getAllLanguages();
+        verify(languageRepository).findAll();
+    }
+
+    @Test
+    public void getALanguage(){
+        myFirstMicroserviceApplication.getALanguage(6);
+        verify(languageRepository).findById(6);
+    }
+
+    @Test
+    public void testAddNewLanguage(){
+        Language language = new Language("Korean");
+
+        String expected = "saved";
+        String Actual = myFirstMicroserviceApplication.addNewLanguage(language.getName());
+
+        ArgumentCaptor<Language> languageArguementCaptor = ArgumentCaptor.forClass(Language.class);
+
+        verify(languageRepository).save(languageArguementCaptor.capture());
+        languageArguementCaptor.getValue();
+
+        Assertions.assertEquals(expected, Actual, "The category was not saved successfully into the database");
+
+    }
+
+    @Test
+    public void testDeleteLanguage(){
+        myFirstMicroserviceApplication.deleteLanguageById(7);
+        verify(languageRepository, times(1)).deleteById(7);
 
     }
 }
