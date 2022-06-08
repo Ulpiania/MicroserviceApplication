@@ -5,6 +5,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.data.rest.webmvc.ResourceNotFoundException;
+
+
+
 
 import java.util.Optional;
 
@@ -20,12 +24,17 @@ public class MyFirstMicroserviceApplication {
 	@Autowired
 	private CategoryRepository categoryRepository;
 
+	@Autowired
+	private LanguageRepository languageRepository;
+
 	public static void main(String[] args) {
 		SpringApplication.run(MyFirstMicroserviceApplication.class, args);
 	}
 
-	public MyFirstMicroserviceApplication(ActorRepository actorRepository, CategoryRepository categoryRepository){
+	public MyFirstMicroserviceApplication(ActorRepository actorRepository, CategoryRepository categoryRepository, LanguageRepository languageRepository){
 		this.actorRepository = actorRepository;
+		this.categoryRepository = categoryRepository;
+		this.languageRepository = languageRepository;
 	}
 
 	//Get request / read function
@@ -49,8 +58,8 @@ public class MyFirstMicroserviceApplication {
 	}
 
 	@PutMapping("/Update_An_Actor")
-	public ResponseEntity<Actor> String (@RequestParam int actor_id, String first_name, String last_name){
-		Actor a = actorRepository.findById(actor_id).orElseThrow();
+	public ResponseEntity<Actor> UpdateActor (@RequestParam int actor_id, String first_name, String last_name)throws ResourceNotFoundException{
+		Actor a = actorRepository.findById(actor_id).orElseThrow(()-> new ResourceNotFoundException("Employee not found for this ID :: "+ actor_id));
 		a.setFirst_name(first_name);
 		a.setLast_name(last_name);
 		actorRepository.save(a);
@@ -70,6 +79,11 @@ public class MyFirstMicroserviceApplication {
 		return categoryRepository.findAll();
 	}
 
+	@GetMapping("/Get_A_Category")
+	public Optional<Category>getACategory(@RequestParam Integer category_id){
+		return categoryRepository.findById(category_id);
+	}
+
 	@PostMapping("/Add_New_Category")
 	public @ResponseBody String addNewCategory(@RequestParam String name){
 		Category c = new Category(name);
@@ -77,9 +91,49 @@ public class MyFirstMicroserviceApplication {
 		return "saved";
 	}
 
+	@PutMapping("/Update_A_Category")
+	public ResponseEntity<Category> updateCategory (@RequestParam int category_id, String name)throws ResourceNotFoundException{
+		Category c = categoryRepository.findById(category_id).orElseThrow(()-> new ResourceNotFoundException("Category not found for this ID :: "+ category_id));
+		c.setName(name);
+		categoryRepository.save(c);
+		return ResponseEntity.ok(c);
+	}
+
 	@DeleteMapping("/Delete_Category_By_Id")
 	public @ResponseBody
 	void deleteCategoryById(@RequestParam int category_id){
 		categoryRepository.deleteById(category_id);
+	}
+
+	@GetMapping("/All_Languages")
+	public @ResponseBody
+	Iterable<Language>getAllLanguages(){
+		return languageRepository.findAll();
+	}
+
+	@GetMapping("/Get_A_Language")
+	public Optional<Language>getALanguage(@RequestParam Integer language_id){
+		return languageRepository.findById(language_id);
+	}
+
+	@PostMapping("/Add_New_Language")
+	public @ResponseBody String addNewLanguage(@RequestParam String name){
+		Language l = new Language(name);
+		languageRepository.save(l);
+		return "saved";
+	}
+
+	@PutMapping("/Update_A_Language")
+	public ResponseEntity<Language> updateLanguage (@RequestParam int language_id, String name)throws ResourceNotFoundException{
+		Language l = languageRepository.findById(language_id).orElseThrow(()-> new ResourceNotFoundException("Language not found for this ID :: "+ language_id));
+		l.setName(name);
+		languageRepository.save(l);
+		return ResponseEntity.ok(l);
+	}
+
+	@DeleteMapping("/Delete_Language_By_Id")
+	public @ResponseBody
+	void deleteLanguageById(@RequestParam int language_id){
+		languageRepository.deleteById(language_id);
 	}
 }

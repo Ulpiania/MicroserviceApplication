@@ -23,10 +23,12 @@ public class MockitoTest {
     private ActorRepository actorRepository;
     @Mock
     private CategoryRepository categoryRepository;
+    @Mock
+    private LanguageRepository languageRepository;
 
     @BeforeEach
     void setUp(){
-        myFirstMicroserviceApplication = new MyFirstMicroserviceApplication(actorRepository, categoryRepository);
+        myFirstMicroserviceApplication = new MyFirstMicroserviceApplication(actorRepository, categoryRepository, languageRepository);
     }
 
     @Test
@@ -61,6 +63,41 @@ public class MockitoTest {
     public void testDeleteActor(){
         myFirstMicroserviceApplication.deleteActorById(199);
         verify(actorRepository, times(1)).deleteById(199);
+
+    }
+
+    @Test
+    public void getAllCatergories(){
+        myFirstMicroserviceApplication.getAllCategories();
+        verify(categoryRepository).findAll();
+    }
+
+    @Test
+    public void getACategory(){
+        myFirstMicroserviceApplication.getACategory(11);
+        verify(categoryRepository).findById(11);
+    }
+
+    @Test
+    public void testAddNewCategory(){
+        Category category = new Category("Anime");
+
+        String expected = "saved";
+        String Actual = myFirstMicroserviceApplication.addNewCategory(category.getName());
+
+        ArgumentCaptor<Category> categoryArguementCaptor = ArgumentCaptor.forClass(Category.class);
+
+        verify(categoryRepository).save(categoryArguementCaptor.capture());
+        categoryArguementCaptor.getValue();
+
+        Assertions.assertEquals(expected, Actual, "The category was not saved successfully into the database");
+
+    }
+
+    @Test
+    public void testDeleteCategory(){
+        myFirstMicroserviceApplication.deleteCategoryById(16);
+        verify(categoryRepository, times(1)).deleteById(16);
 
     }
 }

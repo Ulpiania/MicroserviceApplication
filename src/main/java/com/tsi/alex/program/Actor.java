@@ -1,12 +1,9 @@
 package com.tsi.alex.program;
 
-import org.springframework.stereotype.Repository;
-
 import javax.persistence.*;
 import java.util.Optional;
 
 @Entity
-@Repository
 @Table(name="actor")
 public class Actor implements ActorRepository{
 

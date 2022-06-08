@@ -1,23 +1,21 @@
 package com.tsi.alex.program;
 
-
 import javax.persistence.*;
 import java.util.Optional;
-
 @Entity
-@Table(name="category")
-public class Category implements CategoryRepository {
+@Table(name="language")
+public class Language implements LanguageRepository {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
-    int categoryId;
+    int languageId;
     String name;
 
-    public Category(String name) {
+    public Language(String name){
         this.name = name;
     }
-    //Empty constructor
-    public Category() {
+
+    public Language(){
     }
 
     public String getName() {
@@ -28,22 +26,18 @@ public class Category implements CategoryRepository {
         this.name = name;
     }
 
-    public void update(Category newName) {
-        newName.name = this.name;
-    }
-
     @Override
-    public <S extends Category> S save(S entity) {
+    public <S extends Language> S save(S entity) {
         return null;
     }
 
     @Override
-    public <S extends Category> Iterable<S> saveAll(Iterable<S> entities) {
+    public <S extends Language> Iterable<S> saveAll(Iterable<S> entities) {
         return null;
     }
 
     @Override
-    public Optional<Category> findById(Integer integer) {
+    public Optional<Language> findById(Integer integer) {
         return Optional.empty();
     }
 
@@ -53,12 +47,12 @@ public class Category implements CategoryRepository {
     }
 
     @Override
-    public Iterable<Category> findAll() {
+    public Iterable<Language> findAll() {
         return null;
     }
 
     @Override
-    public Iterable<Category> findAllById(Iterable<Integer> integers) {
+    public Iterable<Language> findAllById(Iterable<Integer> integers) {
         return null;
     }
 
@@ -73,7 +67,7 @@ public class Category implements CategoryRepository {
     }
 
     @Override
-    public void delete(Category entity) {
+    public void delete(Language entity) {
 
     }
 
@@ -83,7 +77,7 @@ public class Category implements CategoryRepository {
     }
 
     @Override
-    public void deleteAll(Iterable<? extends Category> entities) {
+    public void deleteAll(Iterable<? extends Language> entities) {
 
     }
 
