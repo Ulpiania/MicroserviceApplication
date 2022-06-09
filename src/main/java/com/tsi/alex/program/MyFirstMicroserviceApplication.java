@@ -67,9 +67,11 @@ public class MyFirstMicroserviceApplication {
 	}
 
 	@DeleteMapping("/Delete_Actor_By_Id")
-	public @ResponseBody
-	void deleteActorById(@RequestParam int actor_id){
-		actorRepository.deleteById(actor_id);
+	public
+	String deleteActorById(@PathVariable("actor_id") int aID) throws ResourceNotFoundException{
+		Actor a = actorRepository.findById(aID).orElseThrow( () -> new ResourceNotFoundException("Actor not found for this ID :: " + aID));
+		actorRepository.delete(a);
+		return "Deleted";
 	}
 
 	//Get request / read function
@@ -100,9 +102,10 @@ public class MyFirstMicroserviceApplication {
 	}
 
 	@DeleteMapping("/Delete_Category_By_Id")
-	public @ResponseBody
-	void deleteCategoryById(@RequestParam int category_id){
-		categoryRepository.deleteById(category_id);
+	String deleteCategoryById(@PathVariable("category_id") int cID) throws ResourceNotFoundException{
+		Category c = categoryRepository.findById(cID).orElseThrow( () -> new ResourceNotFoundException("Category not found for this ID :: " + cID));
+		categoryRepository.delete(c);
+		return "Deleted";
 	}
 
 	@GetMapping("/All_Languages")
@@ -132,8 +135,9 @@ public class MyFirstMicroserviceApplication {
 	}
 
 	@DeleteMapping("/Delete_Language_By_Id")
-	public @ResponseBody
-	void deleteLanguageById(@RequestParam int language_id){
-		languageRepository.deleteById(language_id);
+	String deleteLanguageById(@PathVariable("language_id") int lID) throws ResourceNotFoundException{
+		Language l = languageRepository.findById(lID).orElseThrow( () -> new ResourceNotFoundException("Language not found for this ID :: " + lID));
+		languageRepository.delete(l);
+		return "Deleted";
 	}
 }

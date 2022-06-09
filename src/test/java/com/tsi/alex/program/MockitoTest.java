@@ -1,5 +1,6 @@
 package com.tsi.alex.program;
 
+import io.cucumber.java.en_old.Ac;
 import io.cucumber.java.jv.Lan;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -40,8 +41,12 @@ public class MockitoTest {
 
     @Test
     public void getAnActor(){
-        myFirstMicroserviceApplication.getAnActor(199);
-        verify(actorRepository).findById(199);
+        Actor a = new Actor("Alex", "Ulpiani");
+        Mockito.when(myFirstMicroserviceApplication.getAnActor(1)).thenReturn(Optional.of(a));
+        Optional<Actor> actor = myFirstMicroserviceApplication.getAnActor(1);
+
+        Assertions.assertEquals("Alex", actor.get().getFirst_name());
+        Assertions.assertEquals("Ulpiani", actor.get().getLast_name());
     }
 
     @Test
@@ -75,8 +80,12 @@ public class MockitoTest {
 
     @Test
     public void testDeleteActor(){
-        myFirstMicroserviceApplication.deleteActorById(199);
-        verify(actorRepository, times(1)).deleteById(199);
+          final Actor a = new Actor("Alex", "Ulpiani");
+          Optional<Actor> optionalActor = Optional.of(a);
+          Mockito.when(actorRepository.findById(1)).thenReturn(optionalActor);
+          String actual = myFirstMicroserviceApplication.deleteActorById(1);
+          Mockito.verify(actorRepository).delete(a);
+          Assertions.assertEquals("Deleted", actual, "The actor was not deleted successfully");
 
     }
 
@@ -88,8 +97,11 @@ public class MockitoTest {
 
     @Test
     public void getACategory(){
-        myFirstMicroserviceApplication.getACategory(11);
-        verify(categoryRepository).findById(11);
+        Category c = new Category("Anime");
+        Mockito.when(myFirstMicroserviceApplication.getACategory(1)).thenReturn(Optional.of(c));
+        Optional<Category> category = myFirstMicroserviceApplication.getACategory(1);
+
+        Assertions.assertEquals("Anime", category.get().getName());
     }
 
     @Test
@@ -110,8 +122,12 @@ public class MockitoTest {
 
     @Test
     public void testDeleteCategory(){
-        myFirstMicroserviceApplication.deleteCategoryById(16);
-        verify(categoryRepository, times(1)).deleteById(16);
+        final Category c = new Category("Anime");
+        Optional<Category> optionalCategory = Optional.of(c);
+        Mockito.when(categoryRepository.findById(1)).thenReturn(optionalCategory);
+        String actual = myFirstMicroserviceApplication.deleteCategoryById(1);
+        Mockito.verify(categoryRepository).delete(c);
+        Assertions.assertEquals("Deleted", actual, "The Category was not deleted successfully");
 
     }
 
@@ -123,8 +139,11 @@ public class MockitoTest {
 
     @Test
     public void getALanguage(){
-        myFirstMicroserviceApplication.getALanguage(6);
-        verify(languageRepository).findById(6);
+        Language l = new Language("Korean");
+        Mockito.when(myFirstMicroserviceApplication.getALanguage(1)).thenReturn(Optional.of(l));
+        Optional<Language> language = myFirstMicroserviceApplication.getALanguage(1);
+
+        Assertions.assertEquals("Korean", language.get().getName());
     }
 
     @Test
@@ -145,8 +164,11 @@ public class MockitoTest {
 
     @Test
     public void testDeleteLanguage(){
-        myFirstMicroserviceApplication.deleteLanguageById(7);
-        verify(languageRepository, times(1)).deleteById(7);
-
+        final Language l = new Language("Korean");
+        Optional<Language> optionalLanguage = Optional.of(l);
+        Mockito.when(languageRepository.findById(1)).thenReturn(optionalLanguage);
+        String actual = myFirstMicroserviceApplication.deleteLanguageById(1);
+        Mockito.verify(languageRepository).delete(l);
+        Assertions.assertEquals("Deleted", actual, "The language was not deleted successfully");
     }
 }
