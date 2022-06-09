@@ -5,7 +5,7 @@ import java.util.Optional;
 
 @Entity
 @Table(name="actor")
-public class Actor implements ActorRepository{
+public class Actor{
 
     @Id
     @Column(name="actor_id")
@@ -54,63 +54,5 @@ public class Actor implements ActorRepository{
     {
         return first_name + " " + last_name;
     }
-    @Override
-    public <S extends Actor> S save(S entity) {
-        return null;
-    }
 
-    @Override
-    public <S extends Actor> Iterable<S> saveAll(Iterable<S> entities) {
-        return null;
-    }
-
-    @Override
-    public Optional<Actor> findById(Integer integer) {
-        return Optional.empty();
-    }
-
-    @Override
-    public boolean existsById(Integer integer) {
-        return false;
-    }
-
-    @Override
-    public Iterable<Actor> findAll() {
-        return null;
-    }
-
-    @Override
-    public Iterable<Actor> findAllById(Iterable<Integer> integers) {
-        return null;
-    }
-
-    @Override
-    public long count() {
-        return 0;
-    }
-
-    @Override
-    public void deleteById(Integer integer) {
-
-    }
-
-    @Override
-    public void delete(Actor entity) {
-
-    }
-
-    @Override
-    public void deleteAllById(Iterable<? extends Integer> integers) {
-
-    }
-
-    @Override
-    public void deleteAll(Iterable<? extends Actor> entities) {
-
-    }
-
-    @Override
-    public void deleteAll() {
-
-    }
 }

@@ -27,14 +27,13 @@ public class MyFirstMicroserviceApplication {
 	@Autowired
 	private LanguageRepository languageRepository;
 
-	public static void main(String[] args) {
-		SpringApplication.run(MyFirstMicroserviceApplication.class, args);
-	}
-
 	public MyFirstMicroserviceApplication(ActorRepository actorRepository, CategoryRepository categoryRepository, LanguageRepository languageRepository){
 		this.actorRepository = actorRepository;
 		this.categoryRepository = categoryRepository;
 		this.languageRepository = languageRepository;
+	}
+	public static void main(String[] args) {
+		SpringApplication.run(MyFirstMicroserviceApplication.class, args);
 	}
 
 	//Get request / read function
