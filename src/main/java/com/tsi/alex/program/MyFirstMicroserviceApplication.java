@@ -27,10 +27,13 @@ public class MyFirstMicroserviceApplication {
 	@Autowired
 	private LanguageRepository languageRepository;
 
-	public MyFirstMicroserviceApplication(ActorRepository actorRepository, CategoryRepository categoryRepository, LanguageRepository languageRepository){
+	@Autowired FilmRepository filmRepository;
+
+	public MyFirstMicroserviceApplication(ActorRepository actorRepository, CategoryRepository categoryRepository, LanguageRepository languageRepository, FilmRepository filmRepository){
 		this.actorRepository = actorRepository;
 		this.categoryRepository = categoryRepository;
 		this.languageRepository = languageRepository;
+		this.filmRepository = filmRepository;
 	}
 	public static void main(String[] args) {
 		SpringApplication.run(MyFirstMicroserviceApplication.class, args);
@@ -88,6 +91,7 @@ public class MyFirstMicroserviceApplication {
 	@PostMapping("/Add_New_Category")
 	public @ResponseBody String addNewCategory(@RequestParam String name){
 		Category c = new Category(name);
+		System.out.println(name);
 		categoryRepository.save(c);
 		return "saved";
 	}
@@ -121,6 +125,7 @@ public class MyFirstMicroserviceApplication {
 	@PostMapping("/Add_New_Language")
 	public @ResponseBody String addNewLanguage(@RequestParam String name){
 		Language l = new Language(name);
+		System.out.println(name);
 		languageRepository.save(l);
 		return "saved";
 	}
@@ -137,6 +142,48 @@ public class MyFirstMicroserviceApplication {
 	String deleteLanguageById(@PathVariable("language_id") int lID) throws ResourceNotFoundException{
 		Language l = languageRepository.findById(lID).orElseThrow( () -> new ResourceNotFoundException("Language not found for this ID :: " + lID));
 		languageRepository.delete(l);
+		return "Deleted";
+	}
+
+	@GetMapping("/All_Films")
+	public @ResponseBody
+	Iterable<Film>getAllFilms(){
+		return filmRepository.findAll();
+	}
+
+	@GetMapping("/Get_A_Film")
+	public Optional<Film>getAFilm(@RequestParam Integer film_id){
+		return filmRepository.findById(film_id);
+	}
+
+	@PostMapping("/Add_New_Film")
+	public @ResponseBody String addNewFilm(@RequestParam String title, String description, int release_year, int language_id, Integer original_language_id, int rental_duration, float rental_rate, int length, float replacement_cost, String rating, String special_features){
+		Film f = new Film(title, description, release_year, language_id, original_language_id, rental_duration, rental_rate, length, replacement_cost, rating, special_features);
+		filmRepository.save(f);
+		return "saved";
+	}
+
+	@PutMapping("/Update_A_Film")
+	public ResponseEntity<Film> updateFilm (@PathVariable("film_id")int fId, @RequestBody Film film) throws ResourceNotFoundException{
+		Film f = filmRepository.findById(fId).orElseThrow(()-> new ResourceNotFoundException("Film not found for this ID :: "+ fId));
+		f.setTitle(film.title);
+		f.setDescription(film.description);
+		f.setRelease_year(film.release_year);
+		f.setLanguage_id(film.language_id);
+		f.setOriginal_language_id(film.original_language_id);
+		f.setRental_duration(film.rental_duration);
+		f.setLength(film.length);
+		f.setReplacement_cost(film.replacement_cost);
+		f.setRating(film.rating);
+		f.setSpecial_features(film.special_features);
+		filmRepository.save(f);
+		return ResponseEntity.ok(f);
+	}
+
+	@DeleteMapping("/Delete_Film_By_Id")
+	String deleteFilmById(@PathVariable("film_id") int fID) throws ResourceNotFoundException{
+		Film f = filmRepository.findById(fID).orElseThrow( () -> new ResourceNotFoundException("Film not found for this ID :: " + fID));
+		filmRepository.delete(f);
 		return "Deleted";
 	}
 }

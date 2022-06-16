@@ -27,11 +27,13 @@ public class DeleteActorStepDef {
     private static CategoryRepository categoryRepository;
     @Mock
     private static LanguageRepository languageRepository;
+    @Mock
+    private static FilmRepository filmRepository;
 
     @Before
     public static void init(){
         actorRepository=mock(ActorRepository.class);
-        myFirstMicroserviceApplication = new MyFirstMicroserviceApplication(actorRepository, categoryRepository, languageRepository);
+        myFirstMicroserviceApplication = new MyFirstMicroserviceApplication(actorRepository, categoryRepository, languageRepository, filmRepository);
     }
 
     int actor_ID;
