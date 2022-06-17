@@ -27,7 +27,8 @@ public class MyFirstMicroserviceApplication {
 	@Autowired
 	private LanguageRepository languageRepository;
 
-	@Autowired FilmRepository filmRepository;
+	@Autowired
+	private FilmRepository filmRepository;
 
 	public MyFirstMicroserviceApplication(ActorRepository actorRepository, CategoryRepository categoryRepository, LanguageRepository languageRepository, FilmRepository filmRepository){
 		this.actorRepository = actorRepository;
@@ -35,6 +36,7 @@ public class MyFirstMicroserviceApplication {
 		this.languageRepository = languageRepository;
 		this.filmRepository = filmRepository;
 	}
+
 	public static void main(String[] args) {
 		SpringApplication.run(MyFirstMicroserviceApplication.class, args);
 	}

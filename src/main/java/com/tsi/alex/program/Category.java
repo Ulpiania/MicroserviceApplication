@@ -9,7 +9,6 @@ import java.util.Optional;
 public class Category{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     int categoryId;
     String name;
 
