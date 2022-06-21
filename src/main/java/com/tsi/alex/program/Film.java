@@ -51,7 +51,7 @@ public class Film {
 
     @OneToOne
     @JoinColumn(name = "language_id")
-    public Language language;
+    private Language language;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name="film_actor", joinColumns = {

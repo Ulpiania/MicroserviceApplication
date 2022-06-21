@@ -168,16 +168,16 @@ public class MyFirstMicroserviceApplication {
 	@PutMapping("/Update_A_Film")
 	public ResponseEntity<Film> updateFilm (@PathVariable("film_id")int fId, @RequestBody Film film) throws ResourceNotFoundException{
 		Film f = filmRepository.findById(fId).orElseThrow(()-> new ResourceNotFoundException("Film not found for this ID :: "+ fId));
-		f.setTitle(film.title);
-		f.setDescription(film.description);
-		f.setRelease_year(film.release_year);
-		f.setLanguage_id(film.language);
-		f.setOriginal_language_id(film.original_language_id);
-		f.setRental_duration(film.rental_duration);
-		f.setLength(film.length);
-		f.setReplacement_cost(film.replacement_cost);
-		f.setRating(film.rating);
-		f.setSpecial_features(film.special_features);
+		f.setTitle(film.getTitle());
+		f.setDescription(film.getDescription());
+		f.setRelease_year(film.getRelease_year());
+		f.setLanguage_id(film.getLanguage_id());
+		f.setOriginal_language_id(film.getOriginal_language_id());
+		f.setRental_duration(film.getRental_duration());
+		f.setLength(film.getLength());
+		f.setReplacement_cost(film.getReplacement_cost());
+		f.setRating(film.getRating());
+		f.setSpecial_features(film.getSpecial_features());
 		filmRepository.save(f);
 		return ResponseEntity.ok(f);
 	}
