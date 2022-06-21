@@ -1,7 +1,11 @@
 package com.tsi.alex.program;
 
 import javax.persistence.*;
+import java.awt.image.AreaAveragingScaleFilter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.lang.Nullable;
 @Entity
@@ -16,7 +20,6 @@ public class Film {
     String title;
     String description;
     int release_year;
-    int language_id;
 
     @Nullable
     Integer original_language_id;
@@ -28,11 +31,11 @@ public class Film {
     String rating;
     String special_features;
 
-    public Film(String title, String description, int release_year, int language_id, Integer original_language_id, int rental_duration, float rental_rate, int length, float replacement_cost, String rating, String special_features){
+    public Film(String title, String description, int release_year, Language language_id, Integer original_language_id, int rental_duration, float rental_rate, int length, float replacement_cost, String rating, String special_features){
             this.title = title;
             this.description = description;
             this.release_year = release_year;
-            this.language_id =language_id;
+            this.language =language_id;
             this.original_language_id = original_language_id;
             this.rental_duration = rental_duration;
             this.rental_rate = rental_rate;
@@ -44,6 +47,31 @@ public class Film {
 
     public Film(){
 
+    }
+
+    @OneToOne
+    @JoinColumn(name = "language_id")
+    public Language language;
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name="film_actor", joinColumns = {
+            @JoinColumn(name = "film_id", nullable = false)
+    }, inverseJoinColumns = {
+            @JoinColumn(name = "actor_id", nullable = false)
+    })
+    Set<Actor> actors;
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name = "film_category",
+            joinColumns = @JoinColumn(name="film_id"),
+            inverseJoinColumns = @JoinColumn(name = "category_id")
+    )
+    private List<Category> categoryList = new ArrayList<>();
+
+
+
+    public List<Category> categoryList(){
+        return categoryList;
     }
 
     public String getTitle(){
@@ -70,12 +98,12 @@ public class Film {
         this.release_year = release_year;
     }
 
-    public int getLanguage_id(){
-        return language_id;
+    public Language getLanguage_id(){
+        return language;
     }
 
-    public void setLanguage_id(int language_id){
-        this.language_id = language_id;
+    public void setLanguage_id(Language language){
+        this.language = language;
     }
 
     public Integer getOriginal_language_id(){

@@ -2,6 +2,7 @@ package com.tsi.alex.program;
 
 import javax.persistence.*;
 import java.util.Optional;
+import java.util.Set;
 
 @Entity
 @Table(name="actor")
@@ -24,14 +25,20 @@ public class Actor{
     //Empty Constructor
     public Actor() {}
 
-    //Getter and Setters
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name="film_actor", joinColumns = {
+            @JoinColumn(name="actor_id", nullable = false)
+    }, inverseJoinColumns = {
+            @JoinColumn(name="film_id", nullable = false)
+    })
+    Set<Film> films;
 
+    //Getter and Setters
+    public Set<Film> getFilms() {
+        return films;
+    }
     public int getActor_id() {
         return actor_id;
-    }
-
-    public void setActor_id(int actor_id) {
-        this.actor_id = actor_id;
     }
 
     public String getFirst_name() {

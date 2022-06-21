@@ -159,7 +159,7 @@ public class MyFirstMicroserviceApplication {
 	}
 
 	@PostMapping("/Add_New_Film")
-	public @ResponseBody String addNewFilm(@RequestParam String title, String description, int release_year, int language_id, Integer original_language_id, int rental_duration, float rental_rate, int length, float replacement_cost, String rating, String special_features){
+	public @ResponseBody String addNewFilm(@RequestParam String title, String description, int release_year, Language language_id, Integer original_language_id, int rental_duration, float rental_rate, int length, float replacement_cost, String rating, String special_features){
 		Film f = new Film(title, description, release_year, language_id, original_language_id, rental_duration, rental_rate, length, replacement_cost, rating, special_features);
 		filmRepository.save(f);
 		return "saved";
@@ -171,7 +171,7 @@ public class MyFirstMicroserviceApplication {
 		f.setTitle(film.title);
 		f.setDescription(film.description);
 		f.setRelease_year(film.release_year);
-		f.setLanguage_id(film.language_id);
+		f.setLanguage_id(film.language);
 		f.setOriginal_language_id(film.original_language_id);
 		f.setRental_duration(film.rental_duration);
 		f.setLength(film.length);

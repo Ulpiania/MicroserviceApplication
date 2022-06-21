@@ -203,14 +203,14 @@ public class MockitoTest {
 
     @Test
     public void getAFilm(){
-        Film f = new Film("Test", "Cool Film", 2006, 1, null, 5, 0.55f, 55, 15.99f, "PG", "Deleted scenes");
+        Film f = new Film("Test", "Cool Film", 2006, null, null, 5, 0.55f, 55, 15.99f, "PG", "Deleted scenes");
         Mockito.when(myFirstMicroserviceApplication.getAFilm(1)).thenReturn(Optional.of(f));
         Optional<Film> film = myFirstMicroserviceApplication.getAFilm(1);
 
         Assertions.assertEquals("Test", film.get().getTitle());
         Assertions.assertEquals("Cool Film", film.get().getDescription());
         Assertions.assertEquals(2006, film.get().getRelease_year());
-        Assertions.assertEquals(1, film.get().getLanguage_id());
+        Assertions.assertEquals(null, film.get().getLanguage_id());
         Assertions.assertEquals(null, film.get().getOriginal_language_id());
         Assertions.assertEquals(5, film.get().getRental_duration());
         Assertions.assertEquals(0.55f, film.get().getRental_rate());
@@ -222,7 +222,7 @@ public class MockitoTest {
 
     @Test
     public void testAddNewFilm(){
-        Film film = new Film("Test", "Cool Film", 2006, 1, null, 5, 0.55f, 55, 15.99f, "PG", "Deleted scenes");
+        Film film = new Film("Test", "Cool Film", 2006, null, null, 5, 0.55f, 55, 15.99f, "PG", "Deleted scenes");
 
         String expected = "saved";
         String Actual = myFirstMicroserviceApplication.addNewFilm(film.getTitle(), film.getDescription(), film.getRelease_year(), film.getLanguage_id(), film.getOriginal_language_id(), film.getRental_duration(), film.getRental_rate(), film.getLength(), film.getReplacement_cost(), film.getRating(), film.getSpecial_features());
@@ -249,7 +249,7 @@ public class MockitoTest {
 
     @Test
     public void testDeleteFilm(){
-        final Film f = new Film("Test", "Cool Film", 2006, 1, null, 5, 0.55f, 55, 15.99f, "PG", "Deleted scenes");
+        final Film f = new Film("Test", "Cool Film", 1, null, 5, 5, 0.55f, 55, 15.99f, "PG", "Deleted scenes");
         Optional<Film> optionalFilm = Optional.of(f);
         Mockito.when(filmRepository.findById(1)).thenReturn(optionalFilm);
         String actual = myFirstMicroserviceApplication.deleteFilmById(1);
