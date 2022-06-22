@@ -236,16 +236,16 @@ public class MockitoTest {
 
     }
 
-//    @Test
-//    public void UpdateAFilm(){
-//        Film f = new Film("Test", "Cool Film", 2006, 1, null, 5, 0.55f, 55, 15.99f, "PG", "Deleted scenes");
-//        Optional<Film> optionalFilm = Optional.of(f);
-//        Mockito.when(myFirstMicroserviceApplication.getAFilm(3)).thenReturn(optionalFilm);
-//        Film a = new Film("Test2", "Cool Film2", 2007, 2, null, 6, 1.55f, 65, 25.99f, "R", "Trailers");
-//        ResponseEntity result = myFirstMicroserviceApplication.updateFilm(3, a.getTitle(), a.getDescription());
-//        ResponseEntity expected = ResponseEntity.ok(a);
-//        Assertions.assertEquals(expected.getStatusCode(), result.getStatusCode(), "The film was not successfully updated");
-//    }
+    @Test
+    public void UpdateAFilm(){
+        Film f = new Film("Test", "Cool Film", 2006, null, null, 5, 0.55f, 55, 15.99f, "PG", "Deleted scenes");
+        Optional<Film> optionalFilm = Optional.of(f);
+        Mockito.when(myFirstMicroserviceApplication.getAFilm(3)).thenReturn(optionalFilm);
+        Film a = new Film("Test2", "Cool Film2", 2007, null, null, 6, 1.55f, 65, 25.99f, "R", "Trailers");
+        ResponseEntity result = myFirstMicroserviceApplication.updateFilm(3, a);
+        ResponseEntity expected = ResponseEntity.ok(a);
+        Assertions.assertEquals(expected.getStatusCode(), result.getStatusCode(), "The film was not successfully updated");
+    }
 
     @Test
     public void testDeleteFilm(){
