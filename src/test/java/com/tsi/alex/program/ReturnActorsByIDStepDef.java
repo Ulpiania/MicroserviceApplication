@@ -47,17 +47,17 @@ public class ReturnActorsByIDStepDef {
         final Actor a = new Actor("Alex", "Ulpiani");
         Optional<Actor> optionalActor = Optional.of(a);
         Mockito.when(actorRepository.findById(actor_id)).thenReturn(optionalActor);
-        actual= String.valueOf(myFirstMicroserviceApplication.getAnActor(actor_id));
+        actual= String.valueOf(myFirstMicroserviceApplication.getAnActor(actor_id).get().toString());
         System.out.println(actual);
     }
 
     String expected = "Alex Ulpiani";
     @Then("I get the corresponding actor to the ID returned")
     public void i_get_the_corresponding_actor_to_the_id_returned() {
-//        ArgumentCaptor<Actor>actorArgumentCaptor = ArgumentCaptor.forClass(Actor.class);
-//        verify(actorRepository).findById(actorArgumentCaptor.capture());
-//        actorArgumentCaptor.getValue();
-//
-//        Assertions.assertEquals(expected, actual);
+        ArgumentCaptor<Integer>actorArgumentCaptor = ArgumentCaptor.forClass(Integer.class);
+        verify(actorRepository).findById(actorArgumentCaptor.capture());
+        actorArgumentCaptor.getValue();
+
+        Assertions.assertEquals(expected, actual);
     }
 }

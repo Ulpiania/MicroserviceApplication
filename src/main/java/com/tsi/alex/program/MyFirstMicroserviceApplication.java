@@ -72,7 +72,7 @@ public class MyFirstMicroserviceApplication {
 
 	@DeleteMapping("/Delete_Actor_By_Id")
 	public
-	String deleteActorById(@PathVariable("actor_id") int aID) throws ResourceNotFoundException{
+	String deleteActorById(@RequestParam("actor_id") int aID) throws ResourceNotFoundException{
 		Actor a = actorRepository.findById(aID).orElseThrow( () -> new ResourceNotFoundException("Actor not found for this ID :: " + aID));
 		actorRepository.delete(a);
 		return "Deleted";

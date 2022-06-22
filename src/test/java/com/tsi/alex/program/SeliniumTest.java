@@ -1,21 +1,18 @@
 package com.tsi.alex.program;
 
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-import java.time.Duration;
-import java.util.concurrent.TimeUnit;
-
 public class SeliniumTest {
-    public static void main (String[] args){
-        ChromeDriver driver = new ChromeDriver();
-        driver.get("http://demo.guru99.com/");
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
-        WebElement element = driver.findElement(By.xpath("//input[@name='emailid']"));
-        element.sendKeys("abc@gmail.com");
+    WebDriver driver = new ChromeDriver();
 
-        WebElement button = driver.findElement(By.xpath("//input[@name='btnLogin']"));
-        button.click();
+    @Test
+    public void test() {
+        driver.navigate().to("http://localhost:3000/services");
+
+        driver.findElement(By.id("btnActor")).click();
     }
 }
