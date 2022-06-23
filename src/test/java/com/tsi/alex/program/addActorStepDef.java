@@ -56,8 +56,6 @@ public class addActorStepDef {
     public void i_get_the_success_return_string() {
         ArgumentCaptor<Actor>actorArgumentCaptor = ArgumentCaptor.forClass(Actor.class);
         verify(actorRepository).save(actorArgumentCaptor.capture());
-        actorArgumentCaptor.getValue();
-
         Assertions.assertEquals(expected, actual);
     }
 }

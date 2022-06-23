@@ -66,13 +66,13 @@ public class Film {
             joinColumns = @JoinColumn(name="film_id"),
             inverseJoinColumns = @JoinColumn(name = "category_id")
     )
-    private List<Category> categoryList = new ArrayList<>();
+    List<Category> categoryList = new ArrayList<>();
 
 
     public Set<Actor> getActors() {
         return actors;
     }
-    public List<Category> categoryList(){
+    public List<Category> getCategoryList(){
         return categoryList;
     }
 

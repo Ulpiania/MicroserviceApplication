@@ -56,8 +56,6 @@ public class ReturnActorsByIDStepDef {
     public void i_get_the_corresponding_actor_to_the_id_returned() {
         ArgumentCaptor<Integer>actorArgumentCaptor = ArgumentCaptor.forClass(Integer.class);
         verify(actorRepository).findById(actorArgumentCaptor.capture());
-        actorArgumentCaptor.getValue();
-
         Assertions.assertEquals(expected, actual);
     }
 }

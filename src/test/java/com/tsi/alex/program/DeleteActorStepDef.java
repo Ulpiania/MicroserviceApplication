@@ -54,7 +54,6 @@ public class DeleteActorStepDef {
     public void i_get_the_deleted_return_string() {
         ArgumentCaptor<Actor>actorArgumentCaptor = ArgumentCaptor.forClass(Actor.class);
         verify(actorRepository).delete(actorArgumentCaptor.capture());
-        actorArgumentCaptor.getValue();
         Assertions.assertEquals(expected, actual);
     }
 
