@@ -69,7 +69,9 @@ public class Film {
     private List<Category> categoryList = new ArrayList<>();
 
 
-
+    public Set<Actor> getActors() {
+        return actors;
+    }
     public List<Category> categoryList(){
         return categoryList;
     }

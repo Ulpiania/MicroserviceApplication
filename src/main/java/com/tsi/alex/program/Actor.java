@@ -34,9 +34,6 @@ public class Actor{
     Set<Film> films;
 
     //Getter and Setters
-    public Set<Film> getFilms() {
-        return films;
-    }
     public int getActor_id() {
         return actor_id;
     }
